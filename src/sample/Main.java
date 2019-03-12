@@ -4,15 +4,14 @@ import javafx.application.Application;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ListIterator;
 import java.util.Scanner;
-
 import static java.lang.Integer.max;
 
 public class Main extends Application {
@@ -28,13 +27,22 @@ public class Main extends Application {
     public void start(Stage stage) throws FileNotFoundException {
         String[] list_colors = {"X","A","C","S","W","O","E","T","U"};
         String color = "";
+        Image[] images = new Image[8];
+        images[0] = new Image("sample/bluei.jpg",20,20,false,false);
+        images[1] = new Image("sample/cyan.jpg",20,20,false,false);
+        images[2] = new Image("sample/green.png",20,20,false,false);
+        images[3] = new Image("sample/orange.png",20,20,false,false);
+        images[4] = new Image("sample/red.jpg",20,20,false,false);
+        images[5] = new Image("sample/yel.jpg",20,20,false,false);
+        images[6] = new Image("sample/purple.png",20,20,false,false);
+        images[7] = new Image("sample/szary.png",20,20,false,false);
         File plik = new File("C:\\Users\\Weronika\\source\\repos\\johnson_ja\\johnson_ja\\wiz.txt");
         Scanner odczyt = new Scanner(plik);
         String text = odczyt.nextLine();
         n_ex = Integer.parseInt(text);
         text = odczyt.nextLine();
         n_m = Integer.parseInt(text);
-        sample.Task[][] macierz = new sample.Task[n_ex][n_m];
+        Task[][] macierz = new Task[n_ex][n_m];
         for (int j = 0; j < n_ex; j++) {
             for (int i = 0; i < n_m; i++) {
                 macierz[j][i] = new Task();
@@ -59,7 +67,7 @@ public class Main extends Application {
         W = 20*Cmax;
         H = 20*(n_m+1);
         Tab tab = new Tab();
-        Node[][] nodes = new Text[n_m+1][Cmax];
+        Node[][] nodes;
         nodes = tab.give_nodes0(Cmax,n_m);
 
         stage.setTitle("Wizualizacja");
@@ -72,7 +80,7 @@ public class Main extends Application {
                         for(int z=k;z<=macierz[i][j].time_of_start;z++){
                             k=z;
                         }
-                        nodes[j+1][k] = new Text(tekst);
+                        nodes[j+1][k] = new ImageView(images[i%8]);
                         k++;
                     }
             }
